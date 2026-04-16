@@ -16,7 +16,6 @@ const SignUp = () => {
     }));
   };
 
-  console.log(signupData);
   return (
     <div className="flex min-h-screen justify-center items-center">
       <form>
