@@ -3,7 +3,7 @@ import User from "./User";
 
 const UserSidebar = () => {
   return (
-    <div className="max-w-[20rem] w-full h-screen flex flex-col">
+    <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
       <h2 className="bg-[#DE2A8A] p-2 m-3 mb-0 rounded-xl text-center">
         Chat App
       </h2>
@@ -18,7 +18,7 @@ const UserSidebar = () => {
         <User />
         <User />
       </div>
-      <div className="h-14 bg-black/20 p-3 flex items-center justify-between rounded-xl">
+      <div className="h-14 bg-black/20 p-3 flex items-center justify-between rounded-xl m-1">
         <div className="avatar">
           <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring-2 ring-offset-2">
             <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
