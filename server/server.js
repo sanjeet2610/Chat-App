@@ -1,10 +1,12 @@
 import "dotenv/config";
 import express from "express";
 import { connectDb } from "./db/connection1.db.js";
+import cookieParser from "cookie-parser";
 
 connectDb();
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const PORT = process.env.PORT;
 
 //routes
