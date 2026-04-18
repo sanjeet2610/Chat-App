@@ -96,3 +96,14 @@ export const login = asyncHandler(async (req, res, next) => {
       },
     });
 });
+
+export const getProfile = asyncHandler(async (req, res, next) => {
+  const userId = req.user._id;
+  const profile = await User.findById(userId);
+  res.status(200).json({
+    status: true,
+    responseDate: {
+      profile,
+    },
+  });
+});
