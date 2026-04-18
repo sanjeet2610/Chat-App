@@ -1,11 +1,19 @@
+import "dotenv/config";
 import express from "express";
-import route from "./routes/user.route.js";
+import { connectDb } from "./db/connection1.db.js";
 
+connectDb();
 const app = express();
-const PORT = 5000;
+app.use(express.json());
+const PORT = process.env.PORT;
 
 //routes
+import route from "./routes/user.route.js";
 app.use("/", route);
+
+//middlewares
+import { errorMiddleware } from "./middlewares/error.middleware.js";
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log("server started");
