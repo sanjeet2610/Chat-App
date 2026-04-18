@@ -107,3 +107,18 @@ export const getProfile = asyncHandler(async (req, res, next) => {
     },
   });
 });
+
+export const logout = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", "", {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "None",
+    })
+    .json({
+      status: true,
+      message: "Logout successful",
+    });
+});
