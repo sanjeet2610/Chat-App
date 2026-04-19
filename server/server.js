@@ -10,8 +10,10 @@ app.use(cookieParser());
 const PORT = process.env.PORT;
 
 //routes
-import route from "./routes/user.route.js";
-app.use("/", route);
+import userRoute from "./routes/user.route.js";
+import messageRoute from "./routes/message.route.js";
+app.use("/user", userRoute);
+app.use("/message", messageRoute);
 
 //middlewares
 import { errorMiddleware } from "./middlewares/error.middleware.js";

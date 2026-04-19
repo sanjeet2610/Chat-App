@@ -4,6 +4,7 @@ import {
   getProfile,
   register,
   logout,
+  getAllUsers,
 } from "../controllers/user.controller.js";
 import { isAuthenticated } from "../middlewares/auth.middleware.js";
 const route = express.Router();
@@ -12,4 +13,5 @@ route.post("/register", register);
 route.post("/login", login);
 route.get("/profile", isAuthenticated, getProfile);
 route.get("/logout", isAuthenticated, logout);
+route.get("/otherUsers", isAuthenticated, getAllUsers);
 export default route;

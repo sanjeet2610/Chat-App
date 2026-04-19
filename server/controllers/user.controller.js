@@ -46,7 +46,7 @@ export const register = asyncHandler(async (req, res, next) => {
       sameSite: "None",
     })
     .json({
-      status: true,
+      success: true,
       responseData: {
         newUser,
         token,
@@ -89,7 +89,7 @@ export const login = asyncHandler(async (req, res, next) => {
       sameSite: "None",
     })
     .json({
-      status: true,
+      success: true,
       responseData: {
         user,
         token,
@@ -101,7 +101,7 @@ export const getProfile = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
   const profile = await User.findById(userId);
   res.status(200).json({
-    status: true,
+    success: true,
     responseDate: {
       profile,
     },
@@ -118,7 +118,15 @@ export const logout = asyncHandler(async (req, res, next) => {
       sameSite: "None",
     })
     .json({
-      status: true,
+      success: true,
       message: "Logout successful",
     });
+});
+
+export const getAllUsers = asyncHandler(async (req, res, next) => {
+  const otherUsers = await User.find({ _id: { $ne: req.user._id } });
+  res.status(200).json({
+    success: true,
+    responseData: otherUsers,
+  });
 });
