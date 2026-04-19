@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { loginUserThunk } from "../../store/slice/user/user.thunk";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -12,10 +16,12 @@ const Login = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    console.log(e.target.value);
   };
 
-  console.log(loginData);
+  const handleLogin = async () => {
+    dispatch(loginUserThunk(loginData));
+  };
+
   return (
     <div className="flex min-h-screen justify-center items-center">
       <form>
@@ -42,7 +48,13 @@ const Login = () => {
             onChange={handleInputChange}
           />
 
-          <button className="btn btn-secondary mt-4">Login</button>
+          <button
+            type="button"
+            className="btn btn-secondary mt-4"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
 
           <p className="flex gap-1">
             Don't have an account ?
