@@ -1,7 +1,18 @@
 import { CiSearch } from "react-icons/ci";
 import User from "./User";
+import { useDispatch } from "react-redux";
+import { logoutUserThunk } from "../../store/slice/user/user.thunk";
+import { useNavigate } from "react-router-dom";
 
 const UserSidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const response = await dispatch(logoutUserThunk());
+    if (response.payload?.success) {
+      navigate("/login");
+    }
+  };
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
       <h2 className="bg-[#DE2A8A] p-2 m-3 mb-0 rounded-xl text-center">
@@ -24,7 +35,9 @@ const UserSidebar = () => {
             <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
           </div>
         </div>
-        <button className="btn btn-secondary h-7 w-24">Log Out</button>
+        <button className="btn btn-secondary h-7 w-24" onClick={handleLogout}>
+          Log Out
+        </button>
       </div>
     </div>
   );
