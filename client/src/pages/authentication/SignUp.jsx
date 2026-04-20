@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signupUserThunk } from "../../store/slice/user/user.thunk.js";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [signupData, setSignupData] = useState({
     fullName: "",
     username: "",
     password: "",
     confirmPassword: "",
+    gender: "Male",
   });
 
   const handleInputChange = (e) => {
@@ -14,6 +20,16 @@ const SignUp = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleSignup = async () => {
+    if (signupData.password !== signupData.confirmPassword) {
+      return toast.error("Password and Confirm Password did not match");
+    }
+    const response = await dispatch(signupUserThunk(signupData));
+    if (response.payload?.success) {
+      navigate("/");
+    }
   };
 
   return (
@@ -34,7 +50,7 @@ const SignUp = () => {
 
           <label className="label mt-3">Username</label>
           <input
-            type="email"
+            type="text"
             name="username"
             value={signupData.username}
             className="input w-full"
@@ -62,7 +78,38 @@ const SignUp = () => {
             onChange={handleInputChange}
           />
 
-          <button className="btn btn-secondary mt-4">SignUp</button>
+          <label className="label mt-3 flex items-center">
+            Select Gender :
+            <label className="flex gap-2 ml-2">
+              Male
+              <input
+                type="radio"
+                name="gender"
+                value="Male"
+                className="radio radio-secondary radio-sm"
+                onChange={handleInputChange}
+                defaultChecked
+              />
+            </label>
+            <label className="flex gap-2 ml-4">
+              Female
+              <input
+                type="radio"
+                name="gender"
+                value="Female"
+                onChange={handleInputChange}
+                className="radio radio-secondary radio-sm"
+              />
+            </label>
+          </label>
+
+          <button
+            type="button"
+            className="btn btn-secondary mt-4"
+            onClick={handleSignup}
+          >
+            SignUp
+          </button>
 
           <p className="flex gap-1">
             Already have an account ?

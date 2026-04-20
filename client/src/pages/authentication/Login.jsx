@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { loginUserThunk } from "../../store/slice/user/user.thunk";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -19,7 +20,10 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    dispatch(loginUserThunk(loginData));
+    const response = await dispatch(loginUserThunk(loginData));
+    if (response.payload?.success) {
+      navigate("/");
+    }
   };
 
   return (
