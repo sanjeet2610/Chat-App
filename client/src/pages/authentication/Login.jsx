@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { loginUserThunk } from "../../store/slice/user/user.thunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleInputChange = (e) => {
     setLoginData((prev) => ({

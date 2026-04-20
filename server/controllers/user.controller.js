@@ -102,7 +102,7 @@ export const getProfile = asyncHandler(async (req, res, next) => {
   const profile = await User.findById(userId);
   res.status(200).json({
     success: true,
-    responseDate: {
+    responseData: {
       profile,
     },
   });

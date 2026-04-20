@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { signupUserThunk } from "../../store/slice/user/user.thunk.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [signupData, setSignupData] = useState({
     fullName: "",
     username: "",
@@ -14,7 +15,9 @@ const SignUp = () => {
     confirmPassword: "",
     gender: "Male",
   });
-
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
   const handleInputChange = (e) => {
     setSignupData((prev) => ({
       ...prev,

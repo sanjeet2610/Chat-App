@@ -57,3 +57,17 @@ export const logoutUserThunk = createAsyncThunk(
     }
   },
 );
+
+export const profileThunk = createAsyncThunk(
+  "user/profile",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/user/profile");
+      return response.data;
+    } catch (error) {
+      const errorOutput = error?.response?.data?.errMessage;
+      console.error(errorOutput);
+      return rejectWithValue(errorOutput);
+    }
+  },
+);
