@@ -11,7 +11,7 @@ const User = ({ userDetails }) => {
   return (
     <div
       onClick={handleClick}
-      className={`flex items-center gap-5 p-2 hover:bg-gray-700 rounded-xl cursor-pointer ${userDetails?._id == selectedUser?._id && "bg-gray-700"}`}
+      className={`flex items-center gap-5 p-1 m-2 hover:bg-gray-700 rounded-xl cursor-pointer ${userDetails?._id == selectedUser?._id && "bg-gray-700"}`}
     >
       <div className="avatar avatar-online">
         <div className="w-12 rounded-full">
