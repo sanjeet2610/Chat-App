@@ -7,12 +7,15 @@ import { Toaster } from "react-hot-toast";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { profileThunk } from "./store/slice/user/user.thunk";
+import { profileThunk, otherUsersThunk } from "./store/slice/user/user.thunk";
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(profileThunk());
+    (async () => {
+      await dispatch(profileThunk());
+      await dispatch(otherUsersThunk());
+    })();
   }, [dispatch]);
 
   return (

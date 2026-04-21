@@ -1,12 +1,13 @@
 import { CiSearch } from "react-icons/ci";
 import User from "./User";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUserThunk } from "../../store/slice/user/user.thunk";
 import { useNavigate } from "react-router-dom";
 
 const UserSidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { otherUsers } = useSelector((state) => state.user);
   const handleLogout = async () => {
     const response = await dispatch(logoutUserThunk());
     if (response.payload?.success) {
@@ -25,9 +26,9 @@ const UserSidebar = () => {
         </label>
       </div>
       <div className="h-full overflow-y-auto">
-        <User />
-        <User />
-        <User />
+        {otherUsers?.map((userDetails) => {
+          return <User key={userDetails._id} userDetails={userDetails} />;
+        })}
       </div>
       <div className="h-14 bg-black/20 p-3 flex items-center justify-between rounded-xl m-1">
         <div className="avatar">

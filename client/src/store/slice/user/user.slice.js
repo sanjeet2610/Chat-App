@@ -4,6 +4,7 @@ import {
   signupUserThunk,
   logoutUserThunk,
   profileThunk,
+  otherUsersThunk,
 } from "./user.thunk";
 
 export const userSlice = createSlice({
@@ -13,6 +14,7 @@ export const userSlice = createSlice({
     screenLoading: true,
     buttonLoading: false,
     userProfile: null,
+    otherUsers: null,
   },
   reducers: {},
 
@@ -70,6 +72,19 @@ export const userSlice = createSlice({
         state.screenLoading = false;
       })
       .addCase(profileThunk.rejected, (state, action) => {
+        state.screenLoading = false;
+      });
+
+    // otherUsers
+    builder
+      .addCase(otherUsersThunk.pending, (state, action) => {
+        state.screenLoading = true;
+      })
+      .addCase(otherUsersThunk.fulfilled, (state, action) => {
+        state.otherUsers = action.payload?.responseData;
+        state.screenLoading = false;
+      })
+      .addCase(otherUsersThunk.rejected, (state, action) => {
         state.screenLoading = false;
       });
   },
