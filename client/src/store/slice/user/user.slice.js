@@ -12,11 +12,16 @@ export const userSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     screenLoading: true,
+    selectedUser: null,
     buttonLoading: false,
     userProfile: null,
     otherUsers: null,
   },
-  reducers: {},
+  reducers: {
+    setSelectedUser: (state, action) => {
+      state.selectedUser = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     //login
@@ -89,5 +94,6 @@ export const userSlice = createSlice({
       });
   },
 });
+export const { setSelectedUser } = userSlice.actions;
 
 export default userSlice.reducer;
