@@ -15,7 +15,12 @@ const MessageContainer = () => {
     }
   }, [selectedUser, dispatch]);
   return !selectedUser ? (
-    <>Please Select A User</>
+    <div className="flex flex-col justify-center items-center w-full">
+      <h2 className="text-2xl">Welcome to Chat-App</h2>
+      <p className="text-xl">
+        Please select a person to start your conversation
+      </p>
+    </div>
   ) : (
     <div className="h-screen w-full flex flex-col">
       <div className="border-b border-b-white/10 p-2">

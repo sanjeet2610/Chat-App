@@ -12,7 +12,11 @@ const Message = ({ messageDetails }) => {
           <div className="w-10 rounded-full">
             <img
               alt="Tailwind CSS chat bubble component"
-              src={selectedUser.avatar}
+              src={
+                userProfile?._id === messageDetails?.senderId
+                  ? userProfile?.avatar
+                  : selectedUser?.avatar
+              }
             />
           </div>
         </div>

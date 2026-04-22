@@ -12,7 +12,7 @@ export const userSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     screenLoading: true,
-    selectedUser: null,
+    selectedUser: JSON.parse(localStorage.getItem("selectedUser")),
     buttonLoading: false,
     userProfile: null,
     otherUsers: null,
@@ -20,6 +20,7 @@ export const userSlice = createSlice({
   reducers: {
     setSelectedUser: (state, action) => {
       state.selectedUser = action.payload;
+      localStorage.setItem("selectedUser", JSON.stringify(action.payload));
     },
   },
 
@@ -64,6 +65,7 @@ export const userSlice = createSlice({
         state.buttonLoading = false;
         state.userProfile = null;
         state.otherUsers = null;
+        localStorage.removeItem("selectedUser");
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
         state.buttonLoading = false;

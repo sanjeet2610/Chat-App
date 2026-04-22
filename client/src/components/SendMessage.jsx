@@ -8,6 +8,7 @@ const SendMessage = () => {
   const dispatch = useDispatch();
   const { selectedUser } = useSelector((state) => state.user);
   const handleSendMessage = () => {
+    setMessage("");
     dispatch(sendMessageThunk({ receiverId: selectedUser?._id, message }));
   };
   return (
