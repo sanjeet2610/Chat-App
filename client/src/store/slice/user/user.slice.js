@@ -58,9 +58,12 @@ export const userSlice = createSlice({
         state.buttonLoading = true;
       })
       .addCase(logoutUserThunk.fulfilled, (state, action) => {
-        state.userProfile = null;
         state.isAuthenticated = false;
+        state.screenLoading = true;
+        state.selectedUser = null;
         state.buttonLoading = false;
+        state.userProfile = null;
+        state.otherUsers = null;
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
         state.buttonLoading = false;

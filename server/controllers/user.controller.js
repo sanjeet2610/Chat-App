@@ -49,7 +49,6 @@ export const register = asyncHandler(async (req, res, next) => {
       success: true,
       responseData: {
         newUser,
-        token,
       },
     });
 });
@@ -92,7 +91,6 @@ export const login = asyncHandler(async (req, res, next) => {
       success: true,
       responseData: {
         user,
-        token,
       },
     });
 });

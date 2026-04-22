@@ -16,7 +16,7 @@ export const messageSlice = createSlice({
         state.buttonLoading = true;
       })
       .addCase(sendMessageThunk.fulfilled, (state, action) => {
-        console.log(action.payload);
+        state.messages.push(action.payload?.responseData);
         state.buttonLoading = false;
       })
       .addCase(sendMessageThunk.rejected, (state, action) => {
@@ -29,7 +29,7 @@ export const messageSlice = createSlice({
         state.screenLoading = true;
       })
       .addCase(getMessageThunk.fulfilled, (state, action) => {
-        console.log(action.payload);
+        state.messages = action.payload?.responseData?.messages;
         state.screenLoading = false;
       })
       .addCase(getMessageThunk.rejected, (state, action) => {
