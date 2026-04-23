@@ -8,8 +8,9 @@ const SendMessage = () => {
   const dispatch = useDispatch();
   const { selectedUser } = useSelector((state) => state.user);
   const handleSendMessage = () => {
-    setMessage("");
+    if (!message.trim()) return;
     dispatch(sendMessageThunk({ receiverId: selectedUser?._id, message }));
+    setMessage("");
   };
   return (
     <div className="w-full flex gap-2 p-2">
@@ -19,6 +20,11 @@ const SendMessage = () => {
         className="input w-full"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSendMessage();
+          }
+        }}
       />
       <button
         className="btn btn-soft btn-secondary mr-2"

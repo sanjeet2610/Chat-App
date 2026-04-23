@@ -15,12 +15,16 @@ export const userSlice = createSlice({
     selectedUser: JSON.parse(localStorage.getItem("selectedUser")),
     buttonLoading: false,
     userProfile: null,
+    onlineUsers: null,
     otherUsers: null,
   },
   reducers: {
     setSelectedUser: (state, action) => {
       state.selectedUser = action.payload;
       localStorage.setItem("selectedUser", JSON.stringify(action.payload));
+    },
+    setOnlineUsers: (state, action) => {
+      state.onlineUsers = action.payload;
     },
   },
 
@@ -99,6 +103,6 @@ export const userSlice = createSlice({
       });
   },
 });
-export const { setSelectedUser } = userSlice.actions;
+export const { setSelectedUser, setOnlineUsers } = userSlice.actions;
 
 export default userSlice.reducer;

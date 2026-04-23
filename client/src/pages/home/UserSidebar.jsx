@@ -6,7 +6,7 @@ import {
   otherUsersThunk,
 } from "../../store/slice/user/user.thunk";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const UserSidebar = () => {
   const dispatch = useDispatch();
@@ -23,6 +23,26 @@ const UserSidebar = () => {
       await dispatch(otherUsersThunk());
     })();
   }, [dispatch]);
+
+  const [searchValue, setSearchValue] = useState("");
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    if (!searchValue) {
+      setUsers(otherUsers);
+    } else {
+      setUsers(
+        otherUsers.filter(
+          (user) =>
+            user.username
+              .toLowerCase()
+              .includes(searchValue.toLocaleLowerCase()) ||
+            user.fullName
+              .toLowerCase()
+              .includes(searchValue.toLocaleLowerCase()),
+        ),
+      );
+    }
+  }, [searchValue, otherUsers]);
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col border-r border-r-white/10">
       <h2 className="bg-[#DE2A8A] p-2 m-3 mb-0 rounded-xl text-center">
@@ -30,12 +50,20 @@ const UserSidebar = () => {
       </h2>
       <div className="p-3">
         <label className="input">
-          <input type="search" required placeholder="Search" />
+          <input
+            type="search"
+            value={searchValue}
+            required
+            placeholder="Search"
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
           <CiSearch />
         </label>
       </div>
+
+      {/* mapping other users */}
       <div className="h-full overflow-y-auto">
-        {otherUsers?.map((userDetails) => {
+        {users?.map((userDetails) => {
           return <User key={userDetails._id} userDetails={userDetails} />;
         })}
       </div>

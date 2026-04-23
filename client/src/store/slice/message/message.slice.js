@@ -6,9 +6,13 @@ export const messageSlice = createSlice({
   initialState: {
     buttonLoading: false,
     screenLoading: false,
-    messages: null,
+    messages: [],
   },
-  reducers: {},
+  reducers: {
+    pushNewMessage: (state, action) => {
+      state.messages.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     // send message
     builder
@@ -29,7 +33,7 @@ export const messageSlice = createSlice({
         state.screenLoading = true;
       })
       .addCase(getMessageThunk.fulfilled, (state, action) => {
-        state.messages = action.payload?.responseData?.messages;
+        state.messages = action.payload?.responseData?.messages || [];
         state.screenLoading = false;
       })
       .addCase(getMessageThunk.rejected, (state, action) => {
@@ -37,5 +41,7 @@ export const messageSlice = createSlice({
       });
   },
 });
+
+export const { pushNewMessage } = messageSlice.actions;
 
 export default messageSlice.reducer;
