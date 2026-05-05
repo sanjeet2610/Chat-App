@@ -6,7 +6,6 @@ import express from "express";
 const app = express();
 
 const server = http.createServer(app);
-console.log(process.env.CLIENT_URL);
 
 const io = new Server(server, {
   cors: {
@@ -19,7 +18,6 @@ const userSocketMap = {};
 io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   userSocketMap[userId] = socket.id;
-  console.log(Object.keys(userSocketMap));
   io.emit("onlineUsers", Object.keys(userSocketMap));
   socket.on("disconnect", () => {
     delete userSocketMap[userId];

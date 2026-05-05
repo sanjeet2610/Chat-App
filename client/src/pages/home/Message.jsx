@@ -9,6 +9,14 @@ const Message = ({ messageDetails }) => {
       messageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
+
+  const formattedTime = messageDetails?.createdAt
+    ? new Date(messageDetails.createdAt).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "";
+
   return (
     <div>
       <div
@@ -28,7 +36,7 @@ const Message = ({ messageDetails }) => {
           </div>
         </div>
         <div className="chat-header">
-          <time className="text-xs opacity-50">12:45</time>
+          <time className="text-xs opacity-50">{formattedTime}</time>
         </div>
         <div className="chat-bubble">{messageDetails?.message}</div>
       </div>
